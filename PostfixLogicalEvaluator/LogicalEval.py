@@ -1,14 +1,3 @@
-# I have not received unauthorized aid on this assignment.
-# I understand the answers that I have submitted.
-# The answers submitted have not been directly copied from another source,
-#   but instead are written in my own words.
-
-
-# [redacted]
-# [redacted]
-# [redacted]
-
-
 from Stack import Stack
 
 
@@ -16,29 +5,29 @@ from Stack import Stack
 def operate(stack, char):
     if char == '!':
         val = not stack.pop()
-    elif char == '&':
-        val = stack.pop() and stack.pop()
+        return val
+
+    right = stack.pop()
+    left = stack.pop()
+
+    if char == '&':
+        return left and right
     elif char == '|':
-        val = stack.pop() or stack.pop()
+        return left or right
     elif char == '=':
-        val = stack.pop() is stack.pop()
+        return left == right
     elif char == '/':
-        val = stack.pop() is not stack.pop()
-    else:
-        return None
-
-    return val
+        return left != right
 
 
-# driver function
+# driver function, input_str must be a valid postfix expression
 def LogicalEval(input_str):
     stack = Stack()
     for char in input_str:
-        val = operate(stack, char)
-        if val:
-            stack.push(val)
-        else:
+        if char == '1' or char == '0':
             stack.push(True if char == '1' else False)
+        elif stack.size() > 0:
+            stack.push(operate(stack, char))
 
     # debug
     # stack.print()
