@@ -4,8 +4,7 @@ from Stack import Stack
 # handles calculation
 def operate(stack, char):
     if char == '!':
-        val = not stack.pop()
-        return val
+        return not stack.pop()
 
     right = stack.pop()
     left = stack.pop()
